@@ -260,9 +260,9 @@ function postData(form){
 
     
     const obj={}
-    formData.forEach((val,key)=>{
-        obj[key]=val
-      })
+    // formData.forEach((val,key)=>{
+    //     obj[key]=val
+    //   })
       
       fetch('server.php',{
         method:'POST',
