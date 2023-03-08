@@ -321,17 +321,5 @@ function postData(form){
     },4000)
   }
 }
-fetch('https://jsonplaceholder.typicode.com/posts',{
-  method:"POST",
-  headers:{
-    'Content-Type':'application/json', 
-  },
-  body:JSON.stringify({name:"Oybek"},)
-})
-      .then(response => {
-        console.log(response)
-        response.json()})
-      .then(json => console.log(json))
-
 })
 
