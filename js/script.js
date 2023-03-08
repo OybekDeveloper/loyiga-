@@ -269,7 +269,7 @@ function postData(form){
         headers:{
           'Content-Type':'application/json'
         },
-        body:formData,
+        body:FormData,
       })
       .then((data)=>data.text())
       .then((data)=>{
