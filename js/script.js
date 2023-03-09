@@ -255,11 +255,12 @@ function postData(form){
     `
     form.insertAdjacentElement('afterend', statusMessage)
 
-    // const request = new XMLHttpRequest()
-    // request.open('POST', 'server.php')
-
+    const formData = new FormData(form)
     
     const obj={}
+    formData.forEach((val, key)=>{
+      obj[key]=val
+    })
     
       
       fetch('server.php',{
@@ -267,7 +268,7 @@ function postData(form){
         headers:{
           'Content-Type':'application/json'
         },
-        body:FormData,
+        body:JSON.stringify(obj),
       })
       .then((data)=>data.text())
       .then((data)=>{
@@ -279,7 +280,7 @@ function postData(form){
         showThanksModal(msg.failure)
       })
       .finally(()=>{
-        from.reset()
+        form.reset()
       })
     // request.addEventListener('load', ()=>{
     //   if (request.status==200){
