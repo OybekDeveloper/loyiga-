@@ -1,11 +1,25 @@
 {
-  "name": "script.js",
+  "name": "script",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Oybek Bakhtiyorov",
+  "license": "ISC",
+  "keywords": [
+    "Js",
+    "html",
+    "serial",
+    "img",
+    "css",
+    "icon"
+  ],
+  "devDependencies": {
+    "json-server": "^0.17.2"
+  },
+  "dependencies": {
+    "json": "^11.0.0"
+  },
+  "description": ""
 }

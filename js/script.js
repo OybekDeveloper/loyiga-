@@ -204,7 +204,7 @@ if ( this.classes.length===0){
 //Card 1
 new MenuCard(
   "img/tabs/1.png",
-  "vegy",
+  "verg",
   'Plan "Usual"',
   "  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit nesciunt facere, sequi exercitationem praesentium ab cupiditate beatae debitis perspiciatis itaque quaerat id modi corporis delectus ratione nobis harum voluptatum in.",
   10,
@@ -320,5 +320,9 @@ function postData(form){
     },4000)
   }
 }
-})
 
+fetch('http://localhost:3000/menu')
+.then((data)=>data.json())
+.then((res)=>console.log(res))
+
+})
