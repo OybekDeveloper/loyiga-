@@ -234,7 +234,7 @@ new MenuCard(
 const forms = document.querySelectorAll('form')
 
 forms.forEach((form)=>{
-  postData(form)
+  bindPostData(form)
 })
 
 const msg={
@@ -242,8 +242,22 @@ const msg={
   success:"Thank's for submiting our form",
   failure:'Something went wrong',
 }
+//Bu yerda async  - yani syinxron functani async qiladi 
+async function postData(url,data)
+{
+  //await-bu so'rov yuborilguncha kutib turishi talab qiladi
+  const res = await fetch(url,{
+    method:'POST',
+    headers:{
+      'Content-Type': 'application/json'
+    },
+   body:data,
+  })
+  return await res.json();
+}
 
-function postData(form){
+
+function bindPostData(form){
   form.addEventListener('submit', (e)=>{
     e.preventDefault()
 
@@ -256,21 +270,10 @@ function postData(form){
     form.insertAdjacentElement('afterend', statusMessage)
 
     const formData = new FormData(form)
-    
-    const obj={}
-    formData.forEach((val, key)=>{
-      obj[key]=val
-    })
-    
-      
-      fetch('server.php',{
-        method:'POST',
-        headers:{
-          'Content-Type':'application/json'
-        },
-        body:JSON.stringify(obj),
-      })
-      .then((data)=>data.text())
+
+    const json = JSON.stringify(Object.fromEntries(formData.entries()))
+
+    postData('http://localhost:3000/request',json)
       .then((data)=>{
         console.log(data)
         showThanksModal(msg.success)
@@ -320,9 +323,4 @@ function postData(form){
     },4000)
   }
 }
-
-fetch('http://localhost:3000/menu')
-.then((data)=>data.json())
-.then((res)=>console.log(res))
-
 })
