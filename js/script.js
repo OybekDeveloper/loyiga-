@@ -295,7 +295,8 @@ const slides = document.querySelectorAll('.offer__slide'),
      current = document.querySelector('#current'),
      sliderWrapper = document.querySelector('.offer__slider-wrapper'),
      slidesField=document.querySelector('.offer__slide-inner'),
-     width = window.getComputedStyle(sliderWrapper).width
+     width = window.getComputedStyle(sliderWrapper).width,
+     slider = document.querySelector('.offer__slider')
 
      let sildeIndex = 1
      let offset = 0
@@ -320,6 +321,26 @@ slides.forEach(slide =>{
   slide.style.width=width
 })
 
+//List slider animation 
+const dots = []
+const indicator = document.createElement('ol')
+indicator.classList.add('carousel-indicators')
+slider.append(indicator)
+
+for( let i=0 ; i<slides.length;i++)
+{
+  const dot = document.createElement('li')
+  dot.setAttribute('data-slide-do', i+1)
+  dot.classList.add('carousel-dot')
+  if(i == 0){dot.style.opacity = 1 }
+  indicator.append(dot)
+  dots.push(dot)
+}
+
+
+
+
+
 next.addEventListener('click', ()=>{
   if(offset==+width.slice(0,width.length - 2)*(slides.length-1)){
     offset=0
@@ -339,6 +360,11 @@ next.addEventListener('click', ()=>{
   }else{
     current.textContent=sildeIndex
   }
+
+  dots.forEach(dot=>dot.style.opacity= '.5')
+  dots[sildeIndex-1].style.opacity=1
+
+
 })
 
 
@@ -349,16 +375,43 @@ prev.addEventListener('click', ()=>{
      offset -=+width.slice(0,width.length - 2)
   }
   slidesField.style.transform=`translateX(-${offset}px)`
+
   if(sildeIndex==1){
-    sildeIndex=slides.length
+    sildeIndex=slides.length()
   }else{
     sildeIndex--
   }
+
     if(slides.length<10){
     current.textContent=`0${sildeIndex}`
   }else{
     current.textContent=sildeIndex
   }
+
+  dots.forEach(dot=>dot.style.opacity= '.5')
+  dots[sildeIndex-1].style.opacity=1
+
+})
+
+dots.forEach(dot=>{
+  dot.addEventListener('click',(e)=>{
+    const slideTo= e.target.getAttribute('data-slide-do')
+
+  sildeIndex= slideTo
+
+  offset=+width.slice(0,width.length - 2)*(slideTo-1)
+  slidesField.style.transform=`translateX(-${offset}px)`
+  
+  if(slides.length<10){
+    current.textContent=`0${sildeIndex}`
+  }else{
+    current.textContent=sildeIndex
+  }
+
+  dots.forEach(dot=>dot.style.opacity= '.5')
+  dots[sildeIndex-1].style.opacity=1
+  
+  })
 
 })
 
